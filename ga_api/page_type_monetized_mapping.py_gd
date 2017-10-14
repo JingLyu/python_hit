@@ -1,0 +1,25 @@
+import os
+os.chdir("/Users/jilv/scripts")
+file='page_type_monetized_mapping.lkp'
+page_type={}
+with open(file) as f:
+    
+    lines = f.read().splitlines();
+    for l in lines[1:]:
+        s=""
+        row = l.split(",")
+        page_type[row[0]]=1
+print len(page_type)
+f.close()
+os.chdir("/Users/jilv/scripts/ga_data")
+file2='budget_traffic.csv'
+with open(file2) as f:
+    lines=f.read().splitlines();
+    for l in lines:
+        row=l.split(",")
+        print row
+        if row[5] in page_type:
+            s=row[0:5]+['Monetised']+row[6:8]
+        else:
+            s=row[0:5]+['Non-monetised']+row[6:8]
+        print s
